@@ -34,7 +34,7 @@ cd ../docker/
 export DOCKER_BUILDKIT=1
 
 # Build the v1.0 modules
-docker build -f Dockerfile-sdv-xt-1.0 -t zorlin/sdv:v1.0-lilypad$SDV_V1_0=1 --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
+docker build -f Dockerfile-sdv-xt-1.0 -t zorlin/sdv:v1.0-lilypad$SDV_V1_0 --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 
 # Publish the Docker containers
 echo "Publishing Docker containers..."
@@ -45,7 +45,7 @@ echo "Please test the new Docker containers prior to running release.sh."
 echo
 echo "The easiest way to test them is, well, Docker! Here's some commands to inspire you:"
 
-echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdv:v1.0-lilypad$SDV_V1_0=1"
+echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdv:v1.0-lilypad$SDV_V1_0"
 echo
 echo "Don't forget to update the README.md with the new versions!"
 
