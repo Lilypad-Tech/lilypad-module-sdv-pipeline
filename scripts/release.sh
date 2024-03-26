@@ -45,7 +45,7 @@ VALUE="zorlin/sdv:v1.0-lilypad$SDV_V1_0"
 echo $VALUE
 sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
 git add lilypad_module.json.tmpl
-git commit -m "Update container version to v0.9-base-lilypad$V0_9_BASE"
+git commit -m "Update container version to v1.0-lilypad$SDV_V1_0"
 git tag sdv-xl-1.0-lilypad$LILYPAD_SDV_V1_0
 
 # Switch back to main
