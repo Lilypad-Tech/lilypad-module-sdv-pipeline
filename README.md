@@ -12,12 +12,16 @@ The following tunables are available. All of them are optional, and have default
 | Name | Description | Default | Available options |
 |------|-------------|---------|-------------------|
 | `Prompt` | A text prompt for the model | "question mark floating in space" | Any string |
-| `Seed` | A seed for the model | 42 | Any valid non-negative integer |
-| `Steps` | The number of steps to run the model for | 50 | Any valid non-negative integer |
+| `Framerate` | The framerate of the video | 8 | Any valid positive integer |
+| `Seed` | A seed for the image model | 42 | Any valid non-negative integer |
+| `Steps` | The number of steps to run the model for | 50 | Any valid non-negative integer from 5 to 200 inclusive |
 | `Scheduler` | The scheduler to use for the model | `normal` | `normal`, `karras`, `exponential`, `sgm_uniform`, `simple`, `ddim_uniform` |
 | `Sampler` | The sampler to use for the model | `euler_ancestral` |  `"euler"`, `"euler_ancestral"`, `"heun"`, `"heunpp2"`, `"dpm_2"`, `"dpm_2_ancestral"`, `"lms"`, `"dpm_fast"`, `"dpm_adaptive"`, `"dpmpp_2s_ancestral"`, `"dpmpp_sde"`, `"dpmpp_sde_gpu"`, `"dpmpp_2m"`, `"dpmpp_2m_sde"`, `"dpmpp_2m_sde_gpu"`, `"dpmpp_3m_sde"`, `"dpmpp_3m_sde_gpu"`, `"ddpm"`, `"lcm"` |
-| `Size` | The output size requested in px | `1024` | `512`, `768`, `1024`, `2048` |
 | `Batching` | How many images to produce | `1` | `1`, `2`, `4`, `8` |
+| `VideoSeed` | A seed for the video model | 42 | Any valid non-negative integer |
+| `VideoSteps` | The number of steps to run the video model for | 50 | Any valid non-negative integer from 5 to 70 inclusive |
+| `VideoScheduler` | The scheduler to use for the video model | `normal` | `normal`, `karras`, `exponential`, `sgm_uniform`, `simple`, `ddim_uniform` |
+| `VideoSampler` | The sampler to use for the video model | `euler_ancestral` |  `"euler"`, `"euler_ancestral"`, `"heun"`, `"heunpp2"`, `"dpm_2"`, `"dpm_2_ancestral"`, `"lms"`, `"dpm_fast"`, `"dpm_adaptive"`, `"dpmpp_2s_ancestral"`, `"dpmpp_sde"`, `"dpmpp_sde_gpu"`, `"dpmpp_2m"`, `"dpmpp_2m_sde"`, `"dpmpp_2m_sde_gpu"`, `"dpmpp_3m_sde"`, `"dpmpp_3m_sde_gpu"`, `"ddpm"`, `"lcm"` |
 
 See the usage sections for the runner of your choice for more information on how to set and use these variables.
 
@@ -26,18 +30,12 @@ To run SDXL Pipeline in Lilypad, you can use the following commands:
 
 ### SDV 1.0
 ```bash
-lilypad run sdv-pipeline:v1.0-lilypad1 -i ImageSeed="696721260153400" -i Prompt="an astronaut floating against a white background"
+lilypad run sdv-pipeline:v1.0-lilypad1 -i ImageSeed="696721260153400" -i Prompt="an astronaut floating against a white background" -i Steps=200 -i VideoSteps 70
 ```
 
-### SDXL 1.0
-Base:
+### SDV 1.1
 ```bash
-lilypad run sdxl-pipeline:v1.0-base-lilypad1 -i Prompt="an astronaut floating against a white background"
-```
-
-Refiner:
-```bash
-lilypad run sdxl-pipeline:v1.0-refiner-lilypad1 -i Prompt="an astronaut floating against a white background"
+lilypad run sdv-pipeline:v1.1-lilypad1 -i ImageSeed="696721260153400" -i Prompt="an astronaut floating against a white background"
 ```
 
 ### Specifying tunables
