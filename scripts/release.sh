@@ -55,6 +55,6 @@ git checkout main
 echo "Please test the new modules and update README.md with the new versions when you're done."
 echo
 echo "The easiest way to test them is... with Lilypad! Here's some commands to inspire you:"
-echo "lilypad run sdv-pipeline:sdv-xl-1.0-lilypad$LILYPAD_SDV_V1_0-lilypad -i Prompt='An astronaut jumps through a field of clouds' -i Steps 200 -i VideoSteps 70"
+echo "lilypad run sdv-pipeline:sdv-xl-1.0-lilypad$LILYPAD_SDV_V1_0-lilypad -i Prompt='An astronaut jumps through a field of clouds' -i Steps=200 -i VideoSteps=70"
 echo
 echo "Don't forget to update the README.md with the new versions!"
