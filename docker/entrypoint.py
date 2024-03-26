@@ -114,7 +114,7 @@ videoseed = os.environ.get("VIDEOSEED") or "42"
 # Get size from $SIZE, falling back to 1024 if not set
 # Valid sizes are 512, 768 and 1024.
 size = os.environ.get("SIZE") or "1024"
-if int(size) not in ["512", "768", "1024", "2048"]:
+if int(size) not in [512, 768, 1024, 2048]:
     print(f"Invalid size {size}. Must be one of 512, 768, 1024, 2048.")
     stop_comfyui()
     sys.exit(1)
