@@ -111,6 +111,12 @@ seed = os.environ.get("SEED") or "42"
 # Get seed from $VIDEOSEED, falling back to 42 if not set
 videoseed = os.environ.get("VIDEOSEED") or "42"
 
+# Get framerate from $FRAMERATE, falling back to 8 if not set
+framerate = os.environ.get("FRAMERATE") or "8"
+if int(framerate) not in range(1,16):
+    print("Invalid framerate value {}. Must be between 1 and 16 inclusive.".format(framerate))
+    exit()
+
 # Get size from $SIZE, falling back to 1024 if not set
 # Valid sizes are 512, 768 and 1024.
 size = os.environ.get("SIZE") or "1024"
@@ -215,7 +221,9 @@ video_ksampler_node["inputs"]["scheduler"] = videoscheduler
 
 # set the filename output prefix
 save_image_webp_node["inputs"]["filename_prefix"] = "output"
+save_image_webp_node["inputs"]["framerate"] = framerate
 save_image_apng_node["inputs"]["filename_prefix"] = "output"
+save_image_apng_node["inputs"]["framerate"] = framerate
 
 # everything set, add entire workflow to queue.
 queue_prompt(prompt_workflow)

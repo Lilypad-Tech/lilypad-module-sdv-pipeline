@@ -26,6 +26,10 @@
                     {{ if .Scheduler }}"{{ subst "SCHEDULER=%s" .Scheduler }}",{{ end }}
                     {{ if .Size }}"{{ subst "SIZE=%s" .Size }}",{{ end }}
                     {{ if .Batching }}"{{ subst "BATCHING=%s" .Batching }}",{{ end }}
+                    {{ if .VideoSeed }}"{{ subst "VIDEO_SEED=%s" .VideoSeed }}",{{ end }}
+                    {{ if .VideoSteps }}"{{ subst "VIDEO_STEPS=%s" .VideoSteps }}",{{ end }}
+                    {{ if .VideoSampler }}"{{ subst "VIDEO_SAMPLER=%s" .VideoSampler }}",{{ end }}
+                    {{ if .VideoScheduler }}"{{ subst "VIDEO_SCHEDULER=%s" .VideoScheduler }}",{{ end }}
                     "HF_HUB_OFFLINE=1"
                 ],
                 "Image": "zorlin/sdxl:v1.0-base-lilypad1",
