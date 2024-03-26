@@ -15,7 +15,7 @@ cd "$(dirname "$0")"
 source VERSIONS.env
 
 # Check that the Docker versions are set
-if [[ -z $V0_9_BASE || -z $V0_9_REFINER || -z $V1_0_BASE || -z $V1_0_REFINER ]]; then
+if [[ -z $SDV_V1_0 ]]; then
     echo "Please set the Docker versions in VERSIONS.env before building."
     exit 1
 fi
