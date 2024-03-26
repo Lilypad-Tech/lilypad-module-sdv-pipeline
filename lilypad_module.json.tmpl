@@ -26,13 +26,14 @@
                     {{ if .Scheduler }}"{{ subst "SCHEDULER=%s" .Scheduler }}",{{ end }}
                     {{ if .Size }}"{{ subst "SIZE=%s" .Size }}",{{ end }}
                     {{ if .Batching }}"{{ subst "BATCHING=%s" .Batching }}",{{ end }}
-                    {{ if .VideoSeed }}"{{ subst "VIDEO_SEED=%s" .VideoSeed }}",{{ end }}
-                    {{ if .VideoSteps }}"{{ subst "VIDEO_STEPS=%s" .VideoSteps }}",{{ end }}
-                    {{ if .VideoSampler }}"{{ subst "VIDEO_SAMPLER=%s" .VideoSampler }}",{{ end }}
-                    {{ if .VideoScheduler }}"{{ subst "VIDEO_SCHEDULER=%s" .VideoScheduler }}",{{ end }}
+                    {{ if .VideoSeed }}"{{ subst "VIDEOSEED=%s" .VideoSeed }}",{{ end }}
+                    {{ if .VideoSteps }}"{{ subst "VIDEOSTEPS=%s" .VideoSteps }}",{{ end }}
+                    {{ if .VideoSampler }}"{{ subst "VIDEOSAMPLER=%s" .VideoSampler }}",{{ end }}
+                    {{ if .VideoScheduler }}"{{ subst "VIDEOSCHEDULER=%s" .VideoScheduler }}",{{ end }}
+                    {{ if .Framerate }}"{{ subst "FRAMERATE=%s" .Framerate }}",{{ end }}
                     "HF_HUB_OFFLINE=1"
                 ],
-                "Image": "zorlin/sdxl:v1.0-base-lilypad1",
+                "Image": "zorlin/sdv:v1.0-lilypad",
                 "Parameters": [
                 ],
                 "WorkingDirectory": ""
