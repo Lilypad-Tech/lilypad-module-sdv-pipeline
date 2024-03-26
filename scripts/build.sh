@@ -38,7 +38,7 @@ docker build -f Dockerfile-sdv-xt-1.0 -t zorlin/sdv:v1.0-lilypad$SDV_V1_0 --targ
 
 # Publish the Docker containers
 echo "Publishing Docker containers..."
-docker push zorlin/sdv:v1.0-lilypad$SDV_V1_0=1
+docker push zorlin/sdv:v1.0-lilypad$SDV_V1_0
 
 # Inform the user they should test the new Docker containers before releasing the associated Lilypad modules
 echo "Please test the new Docker containers prior to running release.sh."
