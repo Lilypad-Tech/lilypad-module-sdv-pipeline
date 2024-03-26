@@ -24,7 +24,6 @@
                     {{ if .Steps }}"{{ subst "STEPS=%s" .Steps }}",{{ end }}
                     {{ if .Sampler }}"{{ subst "SAMPLER=%s" .Sampler }}",{{ end }}
                     {{ if .Scheduler }}"{{ subst "SCHEDULER=%s" .Scheduler }}",{{ end }}
-                    {{ if .Size }}"{{ subst "SIZE=%s" .Size }}",{{ end }}
                     {{ if .Batching }}"{{ subst "BATCHING=%s" .Batching }}",{{ end }}
                     {{ if .VideoSeed }}"{{ subst "VIDEOSEED=%s" .VideoSeed }}",{{ end }}
                     {{ if .VideoSteps }}"{{ subst "VIDEOSTEPS=%s" .VideoSteps }}",{{ end }}
