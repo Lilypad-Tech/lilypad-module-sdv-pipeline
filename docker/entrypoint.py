@@ -32,7 +32,8 @@ KSAMPLER_NAMES = ["euler", "euler_ancestral", "heun", "heunpp2","dpm_2", "dpm_2_
 SCHEDULER_NAMES = ["normal", "karras", "exponential", "sgm_uniform", "simple", "ddim_uniform"]
 
 timeout = 30 # If ComfyUI doesn't start within this many seconds, we'll give up
-default_steps = 50 # Default number of steps
+default_steps = 75 # Default number of steps for image generation
+video_default_steps = 20 # Default number of steps for video generation
 batching = 1 # Default batch size
 
 # Run ComfyUI in a subprocess.
@@ -107,21 +108,30 @@ prompt = os.environ.get("PROMPT") or "question mark floating in space"
 # Get seed from $SEED, falling back to 42 if not set
 seed = os.environ.get("SEED") or "42"
 
+# Get seed from $VIDEOSEED, falling back to 42 if not set
+videoseed = os.environ.get("VIDEOSEED") or "42"
+
 # Get size from $SIZE, falling back to 1024 if not set
 # Valid sizes are 512, 768 and 1024.
 size = os.environ.get("SIZE") or "1024"
-if size not in ["512", "768", "1024", "2048"]:
+if int(size) not in ["512", "768", "1024", "2048"]:
     print(f"Invalid size {size}. Must be one of 512, 768, 1024, 2048.")
     stop_comfyui()
     sys.exit(1)
 
 # Get steps from $STEPS, falling back to default_steps if not set
-# Valid range is 5 to 200
+# Valid range is 5 to 200 inclusive
 steps = os.environ.get("STEPS") or default_steps
-if size not in ["512", "768", "1024"]:
+if int(steps) not in range(5, 201):
     print(f"Invalid number of steps ({steps}). Valid range is 5 to 200 inclusive.")
     stop_comfyui()
     sys.exit(1)
+
+# Get videosteps from $VIDEOSTEPS, falling back to default_steps if not set
+# Valid range is from 5 to 40 inclusive
+videosteps = os.environ.get("VIDEOSTEPS") or video_default_steps
+if int(videosteps) not in range(5, 41):
+    print(f"Invalid number of video steps ({videosteps}). Valid range is from 5 to 40 inclusive.")
 
 # Get batch size from $BATCHING, falling back to 1 if not set
 batching = os.environ.get("BATCHING") or batching
@@ -137,6 +147,13 @@ if sampler not in KSAMPLER_NAMES:
     stop_comfyui()
     sys.exit(1)
 
+# Get video sampler name from $VIDEO_SAMPLER, falling back to "euler_ancestral" if not set
+videosampler = os.environ.get("VIDEOSAMPLER") or "euler_ancestral"
+if videosampler not in KSAMPLER_NAMES:
+    print(f"Invalid video sampler {videosampler}. Must be one of euler, euler_ancestral, heun, heunpp2, dpm_2, dpm_2_ancestral, lms, dpm_fast, dpm_adaptive, dpmpp_2s_ancestral, dpmpp_sde, dpmpp_sde_gpu, dpmpp_2m, dpmpp_2m_sde, dpmpp_2m_sde_gpu, dpmpp_3m_sde, dpmpp_3m_sde_gpu, ddpm, lcm.")
+    stop_comfyui()
+    sys.exit(1)
+
 # Get scheduler name from $SCHEDULER, falling back to "normal" if not set
 scheduler = os.environ.get("SCHEDULER") or "normal"
 if scheduler not in SCHEDULER_NAMES:
@@ -144,12 +161,23 @@ if scheduler not in SCHEDULER_NAMES:
     stop_comfyui()
     sys.exit(1)
 
+# Get video scheduler name from $VIDEO_SCHEDULER, falling back to "normal" if not set
+videoscheduler = os.environ.get("VIDEOSCHEDULER") or "normal"
+if videoscheduler not in SCHEDULER_NAMES:
+    print(f"Invalid video scheduler {videoscheduler}. Must be one of normal, karras, exponential, sgm_uniform, ddim_uniform.")
+    stop_comfyui()
+    sys.exit(1)
+
+
 # give some easy-to-remember names to the nodes
-chkpoint_loader_node = prompt_workflow["4"]
-prompt_pos_node = prompt_workflow["6"]
-empty_latent_img_node = prompt_workflow["5"]
-ksampler_node = prompt_workflow["3"]
-save_image_node = prompt_workflow["9"]
+prompt_pos_node = prompt_workflow["18"]
+empty_latent_img_node = prompt_workflow["22"]
+image_chkpoint_loader_node = prompt_workflow["16"]
+video_chkpoint_loader_node = prompt_workflow["15"]
+image_ksampler_node = prompt_workflow["17"]
+video_ksampler_node = prompt_workflow["3"]
+save_image_webp_node = prompt_workflow["10"]
+save_image_apng_node = prompt_workflow["24"]
 
 # set image dimensions and batch size in EmptyLatentImage node
 empty_latent_img_node["inputs"]["width"] = size
@@ -159,20 +187,33 @@ empty_latent_img_node["inputs"]["batch_size"] = batching
 # set the text prompt for positive CLIPTextEncode node
 prompt_pos_node["inputs"]["text"] = prompt
 
-# set the seed in KSampler node
-ksampler_node["inputs"]["seed"] = seed
+# set the seed in KSampler node for the image
+image_ksampler_node["inputs"]["seed"] = seed
 
-# set the steps in KSampler node
-ksampler_node["inputs"]["steps"] = steps
+# set the seed in KSampler node for the video
+image_ksampler_node["inputs"]["seed"] = videoseed
 
-# set the sampler name in KSampler node
-ksampler_node["inputs"]["sampler_name"] = sampler
+# set the steps in KSampler node for the image
+image_ksampler_node["inputs"]["steps"] = steps
 
-# set the scheduler name in KSampler node
-ksampler_node["inputs"]["scheduler"] = scheduler
+# set the steps in KSampler node for the video
+video_ksampler_node["inputs"]["steps"] = videosteps
+
+# set the sampler name in KSampler node for the image
+image_ksampler_node["inputs"]["sampler_name"] = sampler
+
+# set the sampler name in KSampler node for the video
+video_ksampler_node["inputs"]["sampler_name"] = videosampler
+
+# set the scheduler name in KSampler node for the image
+image_ksampler_node["inputs"]["scheduler"] = scheduler
+
+# set the scheduler name in KSampler node for the image
+video_ksampler_node["inputs"]["scheduler"] = videoscheduler
 
 # set the filename output prefix
-save_image_node["inputs"]["filename_prefix"] = "output"
+save_image_webp_node["inputs"]["filename_prefix"] = "output"
+save_image_apng_node["inputs"]["filename_prefix"] = "output"
 
 # everything set, add entire workflow to queue.
 queue_prompt(prompt_workflow)

@@ -1,9 +1,7 @@
-# SDXL Pipeline for Lilypad and Docker 🐋
+# SDV Pipeline for Lilypad and Docker 🐋
 **In early testing stages: here be dragons.**
 
-Based on ComfyUI, the SDXL Pipeline modules for Lilypad allow you generate images on Lilypad using Stable Diffusion XL and related models.
-
-They supports both the Refiner and Base versions of SDXL v0.9 and v1.0.
+Based on ComfyUI, the SDV Pipeline modules for Lilypad allow you generate videos from text prompts on Lilypad using Stable Diffusion Video and related models.
 
 # Usage
 These modules are designed to be run in a Docker container, either through the Lilypad Network or in Docker directly.
@@ -26,15 +24,9 @@ See the usage sections for the runner of your choice for more information on how
 ## Lilypad
 To run SDXL Pipeline in Lilypad, you can use the following commands:
 
-### SDXL v0.9
-Base:
+### SDV 1.0
 ```bash
-lilypad run sdxl-pipeline:v0.9-base-lilypad1 -i Prompt="an astronaut floating against a white background"
-```
-
-Refiner:
-```bash
-lilypad run sdxl-pipeline:v0.9-refiner-lilypad1 -i Prompt="an astronaut floating against a white background"
+lilypad run sdv-pipeline:v1.0-lilypad1 -i ImageSeed="696721260153400" -i Prompt="an astronaut floating against a white background"
 ```
 
 ### SDXL 1.0

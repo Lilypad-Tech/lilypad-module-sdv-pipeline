@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script is used to build all of the modules in SDXL Pipeline.
+# This script is used to build all of the modules in the SDV pipeline.
 # It requires *quite a lot* of disk space - be warned!
 
 ### VERSIONS ###
@@ -33,29 +33,19 @@ echo "Building Docker containers..."
 cd ../docker/
 export DOCKER_BUILDKIT=1
 
-# Build the v0.9 modules
-docker build -f Dockerfile-sdxl-0.9-base -t zorlin/sdxl:v0.9-base-lilypad$V0_9_BASE --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
-docker build -f Dockerfile-sdxl-0.9-refiner -t zorlin/sdxl:v0.9-refiner-lilypad$V0_9_REFINER --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 # Build the v1.0 modules
-docker build -f Dockerfile-sdxl-1.0-base -t zorlin/sdxl:v1.0-base-lilypad$V1_0_BASE --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
-docker build -f Dockerfile-sdxl-1.0-refiner -t zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
+docker build -f Dockerfile-sdv-xt-1.0 -t zorlin/sdv:v1.0-lilypad$SDV_V1_0=1 --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 
 # Publish the Docker containers
 echo "Publishing Docker containers..."
-docker push zorlin/sdxl:v0.9-base-lilypad$V0_9_BASE
-docker push zorlin/sdxl:v0.9-refiner-lilypad$V0_9_REFINER
-docker push zorlin/sdxl:v1.0-base-lilypad$V1_0_BASE
-docker push zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER
+docker push zorlin/sdv:v1.0-lilypad$SDV_V1_0=1
 
 # Inform the user they should test the new Docker containers before releasing the associated Lilypad modules
 echo "Please test the new Docker containers prior to running release.sh."
 echo
 echo "The easiest way to test them is, well, Docker! Here's some commands to inspire you:"
 
-echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdxl:v0.9-base-lilypad$V0_9_BASE"
-echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdxl:v0.9-refiner-lilypad$V0_9_REFINER"
-echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdxl:v1.0-base-lilypad$V1_0_BASE"
-echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER"
+echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdv:v1.0-lilypad$SDV_V1_0=1"
 echo
 echo "Don't forget to update the README.md with the new versions!"
 
