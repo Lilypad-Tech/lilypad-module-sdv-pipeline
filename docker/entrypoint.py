@@ -130,8 +130,10 @@ if int(steps) not in range(5, 201):
 # Get videosteps from $VIDEOSTEPS, falling back to default_steps if not set
 # Valid range is from 5 to 40 inclusive
 videosteps = os.environ.get("VIDEOSTEPS") or video_default_steps
-if int(videosteps) not in range(5, 41):
-    print(f"Invalid number of video steps ({videosteps}). Valid range is from 5 to 40 inclusive.")
+if int(videosteps) not in range(5, 70):
+    print(f"Invalid number of video steps ({videosteps}). Valid range is from 5 to 70 inclusive.")
+    stop_comfyui()
+    sys.exit(1)
 
 # Get batch size from $BATCHING, falling back to 1 if not set
 batching = os.environ.get("BATCHING") or batching
