@@ -27,13 +27,13 @@ if [[ -n $(git status -s) ]]; then
 fi
 
 # Check that the versions are set
-if [[ -z $LILYPAD_SDV_V1_0 ]]; then
+if [[ -z $LILYPAD_SDV_V1_0 || -z $LILYPAD_SDV_V1_1 ]]; then
     echo "Please set the versions in VERSIONS.env before releasing."
     exit 1
 fi
 
 # Check that the Docker versions are set
-if [[ -z $SDV_V1_0 ]]; then
+if [[ -z $SDV_V1_0 || -z $SDV_V1_1 ]]; then
     echo "Please set the Docker versions in VERSIONS.env before releasing."
     exit 1
 fi
@@ -48,6 +48,14 @@ git add lilypad_module.json.tmpl
 git commit -m "Update container version to v1.0-lilypad$SDV_V1_0"
 git tag sdv-xl-1.0-lilypad$LILYPAD_SDV_V1_0
 
+git checkout sdv-xl-1.1 && git pull
+VALUE="zorlin/sdv:v1.1-lilypad$SDV_V1_1"
+echo $VALUE
+sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
+git add lilypad_module.json.tmpl
+git commit -m "Update container version to v1.1-lilypad$SDV_V1_1"
+git tag sdv-xl-1.1-lilypad$LILYPAD_SDV_V1_1
+
 # Switch back to main
 git checkout main
 
@@ -56,5 +64,6 @@ echo "Please test the new modules and update README.md with the new versions whe
 echo
 echo "The easiest way to test them is... with Lilypad! Here's some commands to inspire you:"
 echo "lilypad run sdv-pipeline:sdv-xl-1.0-lilypad$LILYPAD_SDV_V1_0 -i Prompt='An astronaut jumps through a field of clouds' -i Steps=200 -i VideoSteps=70"
+echo "lilypad run sdv-pipeline:sdv-xl-1.1-lilypad$LILYPAD_SDV_V1_1 -i Prompt='An astronaut jumps through a field of clouds' -i Steps=200 -i VideoSteps=70"
 echo
 echo "Don't forget to update the README.md with the new versions!"

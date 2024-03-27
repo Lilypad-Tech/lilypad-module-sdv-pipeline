@@ -12,7 +12,7 @@ The following tunables are available. All of them are optional, and have default
 | Name | Description | Default | Available options |
 |------|-------------|---------|-------------------|
 | `Prompt` | A text prompt for the model | "question mark floating in space" | Any string |
-| `Framerate` | The framerate of the video | 8 | Any valid positive integer |
+| `Framerate` | The framerate of the video | 8 | Any valid positive integer between 1 and 20 |
 | `Seed` | A seed for the image model | 42 | Any valid non-negative integer |
 | `Steps` | The number of steps to run the model for | 50 | Any valid non-negative integer from 5 to 200 inclusive |
 | `Scheduler` | The scheduler to use for the model | `normal` | `normal`, `karras`, `exponential`, `sgm_uniform`, `simple`, `ddim_uniform` |
