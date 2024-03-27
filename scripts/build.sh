@@ -36,7 +36,7 @@ export DOCKER_BUILDKIT=1
 # Build the v1.0 modules
 docker build -f Dockerfile-sdv-xt-1.0 -t zorlin/sdv:v1.0-lilypad$SDV_V1_0 --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 # Build the v1.1 modules
-docker build -f Dockerfile-sdv-xt-1.0 -t zorlin/sdv:v1.1-lilypad$SDV_V1_0 --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
+docker build -f Dockerfile-sdv-xt-1.1 -t zorlin/sdv:v1.1-lilypad$SDV_V1_1 --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 
 # Publish the Docker containers
 echo "Publishing Docker containers..."
