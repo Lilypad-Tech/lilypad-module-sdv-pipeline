@@ -1,7 +1,7 @@
 # SDV Pipeline for Lilypad and Docker 🐋
-**In early testing stages: here be dragons.**
-
 Based on ComfyUI, the SDV Pipeline modules for Lilypad allow you generate videos from text prompts on Lilypad using Stable Diffusion Video and related models.
+
+The SDV Pipeline modules are designed to take your text prompt, generate a still frame using SDXL, then use that as the input to the SDV model, producing an APNG (animated PNG), WebP video, and an MP4 video all in one go.
 
 # Usage
 These modules are designed to be run in a Docker container, either through the Lilypad Network or in Docker directly.
