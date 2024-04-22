@@ -30,12 +30,12 @@ To run SDXL Pipeline in Lilypad, you can use the following commands:
 
 ### SDV 1.0
 ```bash
-lilypad run sdv-pipeline:v1.0-lilypad1 -i ImageSeed="696721260153400" -i Prompt="an astronaut floating against a white background" -i Steps=200 -i VideoSteps 70
+lilypad run sdv-pipeline:v1.0-lilypad2 -i ImageSeed="696721260153400" -i Prompt="an astronaut floating against a white background" -i Steps=200 -i VideoSteps 70
 ```
 
 ### SDV 1.1
 ```bash
-lilypad run sdv-pipeline:v1.1-lilypad1 -i ImageSeed="696721260153400" -i Prompt="an astronaut floating against a white background"
+lilypad run sdv-pipeline:v1.1-lilypad2 -i ImageSeed="696721260153400" -i Prompt="an astronaut floating against a white background" -i Steps=200 -i VideoSteps 70
 ```
 
 ### Specifying tunables
@@ -60,7 +60,7 @@ docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e PROMPT="an astronaut floating against a white background" \
     -e STEPS=50 \
-    zorlin/sdxl:v0.9-base-lilypad1
+    zorlin/sdxl:v0.9-base-lilypad2
 ```
 
 Refiner:
@@ -69,7 +69,7 @@ docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e PROMPT="an astronaut floating against a white background" \
     -e STEPS=50 \
-    zorlin/sdxl:v0.9-refiner-lilypad1
+    zorlin/sdxl:v0.9-refiner-lilypad2
 ```
 
 ### SDXL v1.0
@@ -80,7 +80,7 @@ docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e PROMPT="an astronaut floating against a white background" \
     -e STEPS=50 \
-    zorlin/sdxl:v1.0-base-lilypad1
+    zorlin/sdxl:v1.0-base-lilypad2
 ```
 
 Refiner:
@@ -89,7 +89,7 @@ docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e PROMPT="an astronaut floating against a white background" \
     -e STEPS=50 \
-    zorlin/sdxl:v1.0-refiner-lilypad1
+    zorlin/sdxl:v1.0-refiner-lilypad2
 ```
 
 ### Specifying tunables
