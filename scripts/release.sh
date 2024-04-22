@@ -46,7 +46,7 @@ echo $VALUE
 sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
 git add lilypad_module.json.tmpl
 git commit -m "Update container version to v1.0-lilypad$SDV_V1_0"
-git tag sdv-xl-1.0-lilypad$LILYPAD_SDV_V1_0
+git tag v1.0-lilypad$LILYPAD_SDV_V1_0
 
 git checkout sdv-xl-1.1 && git pull
 VALUE="zorlin/sdv:v1.1-lilypad$SDV_V1_1"
@@ -54,7 +54,7 @@ echo $VALUE
 sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
 git add lilypad_module.json.tmpl
 git commit -m "Update container version to v1.1-lilypad$SDV_V1_1"
-git tag sdv-xl-1.1-lilypad$LILYPAD_SDV_V1_1
+git tag v1.1-lilypad$LILYPAD_SDV_V1_1
 
 # Switch back to main
 git checkout main
