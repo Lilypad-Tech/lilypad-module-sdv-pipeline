@@ -26,7 +26,7 @@ The following tunables are available. All of them are optional, and have default
 See the usage sections for the runner of your choice for more information on how to set and use these variables.
 
 ## Lilypad
-To run SDXL Pipeline in Lilypad, you can use the following commands:
+To run SDV Pipeline in Lilypad, you can use the following commands:
 
 ### SDV 1.0
 ```bash
@@ -43,7 +43,7 @@ lilypad run sdv-pipeline:v1.1-lilypad2 -i ImageSeed="696721260153400" -i Prompt=
 If you wish to specify more than one tunable, such as the number of steps, simply add more `-i` flags, like so:
 
 ```bash
-lilypad run sdxl-pipeline -i Prompt="an astronaut floating against a white background" -i Steps=69
+lilypad run sdv-pipeline -i Prompt="an astronaut floating against a white background" -i Steps=69
 ```
 
 See the options and tunables section for more information on what tunables are available.
