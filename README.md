@@ -43,7 +43,7 @@ lilypad run sdv-pipeline:v1.1-lilypad2 -i ImageSeed="696721260153400" -i Prompt=
 If you wish to specify more than one tunable, such as the number of steps, simply add more `-i` flags, like so:
 
 ```bash
-lilypad run sdv-pipeline -i Prompt="an astronaut floating against a white background" -i Steps=69
+lilypad run sdv-pipeline -i Prompt="an astronaut floating against a white background" -i Steps=69 -i VideoSteps 70
 ```
 
 See the options and tunables section for more information on what tunables are available.
@@ -52,44 +52,24 @@ See the options and tunables section for more information on what tunables are a
 
 To run these modules in Docker, you can use the following commands:
 
-### SDXL v0.9
+### SDV 1.0
 
-Base:
 ```bash
 docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e PROMPT="an astronaut floating against a white background" \
-    -e STEPS=50 \
-    zorlin/sdxl:v0.9-base-lilypad2
-```
-
-Refiner:
-```bash
-docker run -ti --gpus all \
-    -v $PWD/outputs:/outputs \
-    -e PROMPT="an astronaut floating against a white background" \
-    -e STEPS=50 \
-    zorlin/sdxl:v0.9-refiner-lilypad2
+    -e STEPS=50 -e VIDEOSTEPS=70 \
+    zorlin/sdv:v1.0-lilypad2
 ```
 
 ### SDXL v1.0
 
-Base:
 ```bash
 docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e PROMPT="an astronaut floating against a white background" \
     -e STEPS=50 \
-    zorlin/sdxl:v1.0-base-lilypad2
-```
-
-Refiner:
-```bash
-docker run -ti --gpus all \
-    -v $PWD/outputs:/outputs \
-    -e PROMPT="an astronaut floating against a white background" \
-    -e STEPS=50 \
-    zorlin/sdxl:v1.0-refiner-lilypad2
+    zorlin/sdv:v1.0-lilypad2
 ```
 
 ### Specifying tunables
@@ -98,7 +78,7 @@ If you wish to specify more than one tunable, such as the number of steps, simpl
 ```bash
 -e PROMPT="an astronaut floating against a white background" \
 -e STEPS=69 \
--e SIZE=2048 \
+-e VIDEOSTEPS=70 \
 ```
 
 See the options and tunables section for more information on what tunables are available.
@@ -113,7 +93,7 @@ export HUGGINGFACE_TOKEN=<my huggingface token>
 # From the root directory of this repository, change to the docker folder.
 cd docker
 # Build the docker image
-DOCKER_BUILDKIT=1 docker build -f Dockerfile-sdxl-0.9-refiner -t zorlin/sdxl:v0.9-lilypad5 --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
+DOCKER_BUILDKIT=1 docker build -f Dockerfile-sdv-1.0 -t zorlin/sdv:v1.0-lilypad2 --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 ```
 ```
 mkdir -p outputs
