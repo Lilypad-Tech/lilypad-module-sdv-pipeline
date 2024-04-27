@@ -62,7 +62,7 @@ docker run -ti --gpus all \
     zorlin/sdv:v1.0-lilypad2
 ```
 
-### SDXL v1.0
+### SDV v1.0
 
 ```bash
 docker run -ti --gpus all \
